@@ -1,0 +1,24 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+<h2> Ratings</h2>
+<div>
+    {% for rating in ratings %}
+    <div id = 'u_id'>doctor's id:{{rating['u_id']}}</div>
+    <div id = 'name'>doctor's name:{{rating['d_name']}}</div>
+    <div id = 'rating'>doctor's rating:{{rating['rating']}}</div>
+    <br/>
+    {% endfor %}
+  </div>
+  <a href = '/'>return</a>
+</body>
+
+
+</html>

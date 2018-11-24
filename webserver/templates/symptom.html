@@ -1,0 +1,40 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Symptoms</h1>
+  <div>Disease_id : {{di_id}} <div>
+  <div>Total records: {{length}}</div>
+
+  <div>
+    <p>
+    {% for n in data %}
+      <br>Symptom_id : {{n[1]}}<br>
+      {% if n|length > 2 %}
+      Symptom_name : {{n[2]}}
+      {% endif %}
+    <br><br>
+    {% endfor %}
+    <p>
+  </div>
+
+
+<form method="POST" action="/add_symptom/{{di_id}}">
+<p>
+  Name of new symptom: <input type="text" name="name"> 
+  <input type="submit" value="Add"></p>
+</form>
+
+
+<p><a href="/symptom">Go to the page of all Disease_with_symptom</a></p>
+
+</body>
+
+
+</html>

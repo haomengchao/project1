@@ -1,0 +1,40 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>All of Doctors</h1>
+  <div>Total records: {{length}}</div>
+  <br><br>
+
+  <div>
+    {% for n in data %}
+    <div>User_id: {{n[0]}}</div>
+    <div>Doctor_id: {{n[1]}}</div>
+    <div>Doctor_name: {{n[2]}}</div>
+    <div>department_id: {{n[3]}}</div>
+    <div>department_name: {{n[4]}}</div>
+    <br><br>
+    {% endfor %}
+  </div>
+
+<p><a href="/">Go back to home page</a></p>
+
+<!-- <form method="POST" action="/add/<{{type}}>">
+<p>id of {{type}}: <input type="text" name="id"> 
+  Name of {{type}}: <input type="text" name="name"> 
+  treatment of {{type}}: <input type="text" name="treatment"> 
+  cause of {{type}}: <input type="text" name="cause"> 
+  D_id of {{type}}: <input type="text" name="Did"> 
+  <input type="submit" value="Add"></p>
+</form> -->
+
+</body>
+
+
+</html>

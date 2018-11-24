@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Flask Intro - signup page</title>
+  </head>
+  <body>
+    <h1>Sign up</h1>
+      <br>
+      <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Username">
+      <select name="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+      </select>
+      <input type="password" name="password" placeholder="Password">
+      <input type="text" name="email" placeholder="email address">
+      <div>
+        <label for="birthday">Birthday:</label>
+        <input type="date" name="birthday" min="1990-01-01" max="2018-12-30">
+      </div>
+      <input type="radio" name="identity" value="patient" checked>Patient
+      <input type="radio" name="identity" value="doctor">Doctor
+      <br/>
+      <input type="text" name="name" placeholder="Nickname">
+      <p>If you are a doctor, please enter your department id </p>
+      <select name="departmentid">
+        <div>
+              {% for department in departments %}
+              <option value="{{department['d_id']}}">{{ department['d_name'] }}</option>
+              {% endfor %}
+        </div>        
+      </select>
+      <input type="submit" value="sign up">
+  </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

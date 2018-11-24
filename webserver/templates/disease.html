@@ -1,0 +1,45 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Diseases</h1>
+  <div>Total records: {{length}}</div>
+
+  <div>
+    <p>
+    {% for n in data %}
+      Disease_id : <a href="{{ url_for('Symptom_of_Disease', disease_id = n[0]) }}" >{{n[0]}}</a>
+      <br>Disease_name : {{n[1]}}<br>
+      {% if n|length > 2 %}
+      Disease_treatment : {{n[2]}}
+      {% endif %}
+      {% if n|length > 3 %}
+      <br>Disease_cause : {{n[3]}}<br>
+      {% endif %}
+    <br><br>
+    {% endfor %}
+    <p>
+  </div>
+
+
+
+
+<form method="POST" action="/add_disease/{{d_id}}">
+<p>
+  Name of new disease: <input type="text" name="name"> 
+  treatment of new disease: <input type="text" name="treatment"> 
+  cause of new disease: <input type="text" name="cause"> 
+  <input type="submit" value="Add"></p>
+</form>
+
+
+</body>
+
+
+</html>

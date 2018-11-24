@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Flask Intro - add cure page</title>
+  </head>
+  <body>
+    <h1>Add cure</h1>
+      <br>
+      <form action="/add_cure" method="POST">
+      
+        <p>choose the illness:</p>
+        
+      <select name="i_id">
+        <div>
+              {% for illness in illnesses %}
+              <option value="{{illness['i_id']}}">{{ illness['i_id'] }}</option>
+           
+              {% endfor %}
+        </div>
+      </select>
+
+      <br/>
+      <div>
+        <label for="cure_time">cure time:</label>
+        <input type="date" name="cure_time" min="1990-01-01" max="2018-12-30">
+      </div>
+      <input type="text" name="drugs" placeholder="drugs">
+      <input type="text" name="surgery" placeholder="surgery">
+
+      <input type="submit" value="add cure">
+  </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

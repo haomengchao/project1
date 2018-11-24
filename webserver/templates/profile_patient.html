@@ -1,0 +1,40 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Online health website for W4111 project1</h1>
+<h2> Welcome! This is your homepage</h2>
+<br/>
+
+<h2> Posts</h2>
+  <div>
+    {% for post in posts %}
+    <a href="{{ url_for('get_post', **post) }}">{{ post['subject'] }}</a>
+    <br/>
+    {% endfor %}
+  </div>
+
+<h2> Illness</h2>
+<div>
+	{% for illness in illnesses%}
+	<div >illness_id:{{illness['i_id']}}</div>
+
+	<div >disease name :{{illness['disease_name']}}</div>
+
+	<div>start time:{{illness['start_time']}}</div>
+
+	<div>end time:{{illness['end_time']}} </div>
+	<br/>
+	{% endfor %}
+</div>
+
+</body>
+
+
+</html>

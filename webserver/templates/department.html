@@ -1,0 +1,39 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Departments</h1>
+  <div>Total records: {{length}}</div>
+
+  <div>
+    <p>
+    {% for n in data %}
+      Department_id : <a href="{{ url_for('Disease_of_Department', d_id = n[0]) }}" >{{n[0]}}</a>
+      <br>Department_name : {{n[1]}}<br>
+      {% if n|length > 2 %}
+      Department_context : {{n[2]}}
+      {% endif %}
+    <br><br>
+    {% endfor %}
+    <p>
+  </div>
+
+
+
+<form method="POST" action="/add_department">
+<p>Name of new department: <input type="text" name="name"> 
+   Context of new department<input type="text" name="context"> 
+  <input type="submit" value="Add"></p>
+
+</form>
+
+</body>
+
+
+</html>

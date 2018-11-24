@@ -8,22 +8,32 @@
 
 
 <body>
-  <h1>Some famous Computer Scientists</h1>
-  <div>{{data}}</div>
+  <h1>Online health website for W4111 project1</h1>
+<h2> Welcome!</h2>
+<div>User:{{userinfo['username']}}</div>
+<a href="{{ url_for('profile', **userinfo) }}">{{ userinfo['username'] }}</a>
+<li><a href="/logout">Logout </a></li>
 
-  <div>
-    {% for n in data %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div>
-
-<p><a href="/another">Go to the other page</a></p>
-
-<form method="POST" action="/add">
-<p>Name of new computer scientist: <input type="text" name="name"> <input type="submit" value="Add"></p>
-</form>
-
+<h2> Posts</h2>
+<li><a href="/posts/">posts</a></li>
+<li><a href="/make_post">make a post</a></li>
+<h2> Ratings</h2>
+<li><a href="/ratings">Let's see doctes' rating</a></li>
+<h2>Add illness</h2>
+<li><a href="/add_illness">A doctor can add illness</a></li>
+<h2>Add cure</h2>
+<li><a href="/add_cure">A doctor can add cure</a></li>
 </body>
-
+<h2>Add rating</h2>
+<li><a href="/addrating">A patient can add rating</a></li>
+<h2>Departments</h2>
+<li><a href="/department">Go to the page of all departments</a></li>
+<h2>Patient</h2>
+<li><a href="/patient">Go to the page of all patients</a></li>
+<h2>Doctor</h2>
+<li><a href="/doctor">Go to the page of all doctors</a></li>
+<h2>Symptom</h2>
+<li><a href="/symptom">Go to the page of all Disease_with_symptom</a></li>
+</body>
 
 </html>

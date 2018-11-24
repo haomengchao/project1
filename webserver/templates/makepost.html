@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Flask Intro - signup page</title>
+  </head>
+  <body>
+    <h1>Make post</h1>
+      <br>
+      <form action="/make_post" method="POST">
+        <p>title:</p>
+
+      <input type="text" name="subject" placeholder="subject">
+      <br/>
+         <p>tags:</p>
+
+      <input type="text" name="tags" placeholder="tags">
+      <br/>
+      <p>content:</p>
+      <input type="text" name="content" placeholder="content">
+      <input type="submit" value="make post">
+  </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

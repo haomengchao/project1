@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+  </head>
+  <body>
+  	<h1>Please login</h1>
+      <br>
+      <form action="/login" method="POST">
+      <input type="username" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Log in">
+  </form>
+  <li><a href="/signup">signup</a></li>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

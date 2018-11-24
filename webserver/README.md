@@ -5,10 +5,6 @@ Install libraries
         pip install click, flask, sqlalchemy
 
 
-Edit `server.py` to set your database URI
-
-        DATABASEURI = "<your database uri>"
-
 
 Run it in the shell
 

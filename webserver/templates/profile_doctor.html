@@ -1,0 +1,42 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Online health website for W4111 project1</h1>
+<h2> Welcome! This is your homepage</h2>
+<br/>
+
+<h2> Posts</h2>
+  <div>
+    {% for post in posts %}
+    <a href="{{ url_for('get_post', **post) }}">{{ post['subject'] }}</a>
+    <br/>
+    {% endfor %}
+  </div>
+
+<h2> Cure</h2>
+<div>
+	{% for cure in cures%}
+	<div >illness id:{{cure['i_id']}}</div>
+
+	<div >cure time:{{cure['time']}}</div>
+
+	<div>drugs:{{cure['drugs']}}</div>
+
+	<div>surgery:{{cure['surgery']}}</div>
+  <br/>
+	{% endfor %}
+</div>
+<h2>Say farewell to our website</h2>
+<a href = '/7777777'>byebye</a>
+
+</body>
+
+
+</html>

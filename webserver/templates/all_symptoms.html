@@ -1,0 +1,33 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>{{type}}</h1>
+  <div>Total records: {{length}}</div>
+
+  <div>
+    <p>
+    {% for n in data %}
+      <br>Symptom_id : <a href="{{ url_for('Disease_of_Symptom', symptom_id = n[0]) }}" >{{n[0]}}</a> <br>
+      {% if n|length > 1 %}
+      Symptom_name : {{n[1]}}
+      {% endif %}
+    <br><br>
+    {% endfor %}
+    <p>
+  </div>
+
+
+
+<p><a href="/">Go back to home page</a></p>
+
+</body>
+
+
+</html>

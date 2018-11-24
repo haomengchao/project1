@@ -1,0 +1,44 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>{{type}}</h1>
+  <div>symptom_id: {{symptom_id}}</div>
+  <br><br>
+  Total records: {{length}}
+
+  <div>
+    <p>
+    {% for n in data %}
+      <br>disease_id : {{n[0]}} <br>
+      {% if n|length > 1 %}
+      <br>disease_name : {{n[1]}}<br>
+      {% endif %}
+      {% if n|length > 2 %}
+      <br>disease_treatment : {{n[2]}}<br>
+      {% endif %}
+      {% if n|length > 3 %}
+      <br>disease_cause : {{n[3]}}<br>
+      {% endif %}
+      {% if n|length > 4 %}
+      <br>department_name : {{n[4]}}<br>
+      {% endif %}
+    <br><br>
+    {% endfor %}
+    <p>
+  </div>
+
+
+
+<p><a href="/">Go back to home page</a></p>
+
+</body>
+
+
+</html>

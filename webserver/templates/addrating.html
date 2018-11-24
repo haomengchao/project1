@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Flask Intro - add rating</title>
+  </head>
+  <body>
+    <h1>Add rating</h1>
+      <br>
+      <form action="/addrating" method="POST">
+      
+        <p>choose the doctor:</p>
+        
+      <select name="d_id">
+        <div>
+              {% for doctor in doctors %}
+              <option value="{{doctor['u_id']}}">{{ doctor['d_name'] }}</option>
+              {% endfor %}
+        </div>
+      </select>
+
+
+      <br/>
+      <select name="rating">
+        {%for i in range(11)%}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+
+
+
+      <input type="submit" value="add rating">
+  </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

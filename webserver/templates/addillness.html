@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Flask Intro - add illness page</title>
+  </head>
+  <body>
+    <h1>Add illness</h1>
+      <br>
+      <form action="/add_illness" method="POST">
+      
+        <p>choose the patient:</p>
+        
+      <select name="patient">
+        <div>
+              {% for patient in patients %}
+              <option value="{{patient['u_id']}}">{{ patient['p_name'] }}</option>
+             <br/>
+              {% endfor %}
+        </div>
+      </select>
+      <p>choose the disease:</p>
+        
+      <select name="disease_id">
+        <div>
+              {% for disease in diseases %}
+              <option value="{{disease['d_id']}}">{{ disease['d_name'] }}</option>
+             <br/>
+              {% endfor %}
+        </div>
+      </select>
+
+      <div>
+        <label for="startdate">start time:</label>
+        <input type="date" name="startdate" min="1990-01-01" max="2018-12-30">
+      </div>
+
+      <div>
+        <label for="enddate">end time:</label>
+        <input type="date" name="enddate" min="1990-01-01" max="2018-12-30">
+      </div>
+      <input type="submit" value="add illness">
+  </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+<h2> Posts</h2>
+<div>
+    {% for post in posts %}
+    <a href="{{ url_for('get_post', **post) }}">{{ post['subject'] }}</a>
+    <br/>
+    {% endfor %}
+  </div>
+  <a href = '/'>return</a>
+</body>
+
+
+</html>
