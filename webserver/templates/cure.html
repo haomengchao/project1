@@ -6,21 +6,10 @@
     }
   </style>
 
-
 <body>
   <h1>Online health website for W4111 project1</h1>
-<h2> Welcome! This is your homepage</h2>
-<br/>
-
-<h2> Posts</h2>
-  <div>
-    {% for post in posts %}
-    <a href="{{ url_for('get_post', **post) }}">{{ post['subject'] }}</a>
-    <br/>
-    {% endfor %}
-  </div>
-
 <h2> Cure</h2>
+
 <div>
 	{% for cure in cures%}
 	<div >illness id:{{cure['i_id']}}</div>
@@ -32,11 +21,12 @@
 	<div>surgery:{{cure['surgery']}}</div>
   <br/>
 	{% endfor %}
-</div>
-<h2>Say farewell to our website</h2>
-<a href = '/7777777'>byebye</a>
-
-</body>
 
 
-</html>
+<a href = '/'>return</a>
+
+<form method="POST" action="/search_cure">
+<p>
+  Name of the doctor: <input type="text" name="name">  
+  <input type="submit" value="Seach all cures of a doctor"></p>
+</form>

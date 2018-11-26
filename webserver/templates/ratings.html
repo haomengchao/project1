@@ -10,15 +10,24 @@
 <body>
 <h2> Ratings</h2>
 <div>
-    {% for rating in ratings %}
-    <div id = 'u_id'>doctor's id:{{rating['u_id']}}</div>
-    <div id = 'name'>doctor's name:{{rating['d_name']}}</div>
-    <div id = 'rating'>doctor's rating:{{rating['rating']}}</div>
-    <br/>
-    {% endfor %}
+    {% if ratings|length > 0%}
+      {% for rating in ratings %}
+      <div id = 'u_id'>doctor's id:{{rating['u_id']}}</div>
+      <div id = 'name'>doctor's name:{{rating['d_name']}}</div>
+      <div id = 'rating'>doctor's rating:{{rating['rating']}}</div>
+      <br><br>
+      {% endfor %}
+    {% else %}
+      <div> Sorry, there is no record! <div>
+    {% endif %}
   </div>
   <a href = '/'>return</a>
 </body>
 
+<form method="POST" action="/search_rating">
+<p>
+  Name of the doctor: <input type="text" name="name">  
+  <input type="submit" value="Seach rating of a doctor"></p>
+</form>
 
 </html>

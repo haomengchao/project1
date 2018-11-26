@@ -7,6 +7,7 @@ from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response, session, url_for, escape,flash
 import datetime
+from sqlalchemy.exc import IntegrityError
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -75,10 +76,18 @@ def signup():
       departments.append(dict(d_id = department.d_id,d_name = department.d_name))
     return render_template('signup.html',departments = departments)
   else:
+    all_user_name = set([])
+    cursor = g.conn.execute('''SELECT username FROM "User" ''')
+    for username in cursor:
+      all_user_name.add(username[0])
+    cursor.close()
     command_uid = text('''SELECT max(u_id) as uidnumber FROM "User" ''')
     cursor = g.conn.execute(command_uid).fetchone()
     u_id = cursor[0] + 1 
     username = request.form.get('username')
+    if username in all_user_name:
+      error_text = dict(error = 'The username has been used! Please try another one!')
+      return render_template('error.html',text = error_text)
     gender = request.form.get('gender')
     password = request.form.get('password')
     email = request.form.get('email')
@@ -108,7 +117,7 @@ def signup():
       d_id = cursor[0] + 1
       cmd_doctor = text('''INSERT INTO doctor_affiliate VALUES (:u_id,:d_id,:d_name,:department_id) ''')
       cursor = g.conn.execute(cmd_doctor,u_id = u_id,d_id = d_id,d_name = name,department_id = departmentid)
-    cursor.close()
+    # cursor.close()
   return redirect('/')
 
 @app.route('/login',methods=['GET','POST'])
@@ -280,7 +289,12 @@ def add_cure():
     surgery = request.form.get('surgery')
 
     command_addcure = text(''' INSERT INTO cure VALUES (:d_id,:i_id,:time, :drugs,:surgery)''')
-    cursor = g.conn.execute(command_addcure,d_id = d_id, i_id = i_id, time = curedate, drugs = drugs, surgery = surgery)
+    try:
+      cursor = g.conn.execute(command_addcure,d_id = d_id, i_id = i_id, time = curedate, drugs = drugs, surgery = surgery)
+    except IntegrityError:
+      error_text = 'IntegrityError: (psycopg2.IntegrityError) duplicate key value violates unique constraint "cure_pkey" DETAIL:  Key (d_id, i_id)=(1002, 1) already exists!'
+      error_text = dict(error = error_text)
+      return render_template('error.html',text = error_text)
     cursor.close()
     return redirect('/')
 
@@ -316,7 +330,6 @@ def profile(u_id,username):
 
 @app.route('/ratings')
 def rating():
-  # command = text('SELECT D.u_id as d_id,avg(R.rating) as rating FROM doctor_affiliate as D,rate as R WHERE R.d_id = D.u_id GROUP BY D.u_id')
   command = text(''' SELECT  D.d_id, R.rating, D.d_name as d_name FROM doctor_affiliate as D LEFT OUTER JOIN (
             SELECT D.u_id as d_id,avg(R.rating) as rating FROM doctor_affiliate as D,rate as R WHERE R.d_id = D.u_id GROUP BY D.u_id) as R 
             ON D.u_id = R.d_id''')
@@ -327,6 +340,22 @@ def rating():
   cursor.close()
 
   return render_template('ratings.html',ratings = ratings)
+
+@app.route('/search_rating',methods=['POST','GET'])
+def search_rating():
+  doctor_name = request.form['name']
+  command = text(''' SELECT  D.d_id, R.rating, D.d_name as d_name FROM doctor_affiliate as D ,rate as R where  D.u_id = R.d_id AND D.d_name = :name ''')
+  cursor = g.conn.execute(command, name = doctor_name)
+  doctor_rating = []
+  for rating in cursor:
+    doctor_rating.append(dict(u_id = rating.d_id,rating = rating.rating, d_name = rating.d_name))
+  cursor.close()
+
+  return render_template('ratings.html',ratings = doctor_rating)
+
+
+
+
 @app.route('/addrating',methods = ['GET','POST'])
 def addrating():
   if session['identity'] == 'doctor':
@@ -349,6 +378,7 @@ def addrating():
     cursor = g.conn.execute(command_addrating,p_id = p_id,d_id = d_id,rating=rating)
     cursor.close()
     return redirect('/')
+
 @app.route('/department')
 def Department():
   print request.args
@@ -422,6 +452,29 @@ def Disease_of_Symptom(symptom_id):
     Disease_of_Symptom.append(result[:])
   cursor.close()
   return render_template("diseasewithsymptom.html", data = Disease_of_Symptom, length = len(Disease_of_Symptom) , symptom_id = symptom_id)
+
+@app.route('/cure')
+def cure():
+  command_cure = text('SELECT i_id,time,drugs,surgery from cure')
+  cursor = g.conn.execute(command_cure)
+  cures = []
+  for cure in cursor:
+    cures.append(dict(i_id = cure.i_id,time = cure.time,drugs =cure.drugs,surgery = cure.surgery ))
+  cursor.close()
+  return render_template('cure.html',cures = cures)
+
+@app.route('/search_cure',methods=['POST'])
+def search_cure():
+  doctor_name = request.form['name']
+  command = text(''' SELECT  D.d_id,D.d_name,C.i_id,C.time,C.drugs,C.surgery FROM doctor_affiliate as D ,cure as C where  D.u_id = C.d_id AND D.d_name = :name ''')
+  cursor = g.conn.execute(command, name = doctor_name)
+  doctor_cures = []
+  for cure in cursor:
+    doctor_cures.append(dict(d_id = cure.d_id, d_name = cure.d_name,i_id = cure.i_id,time = cure.time,drugs =cure.drugs,surgery = cure.surgery ))
+  cursor.close()
+  return render_template('cure_search.html',cures = doctor_cures, doctor_name = doctor_name)
+
+
 
 @app.route('/add_department', methods=['POST','GET'])
 def add_department():

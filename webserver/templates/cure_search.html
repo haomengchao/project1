@@ -1,0 +1,38 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+<body>
+  <h1>Online health website for W4111 project1</h1>
+<h2> Cure</h2>
+<div>
+	{% if cures|length > 0%}
+		{% for cure in cures%}
+		<div>doctor id:{{cure['d_id']}}</div>
+
+		<div>doctor name:{{cure['d_name']}}</div>
+
+		<div>illness id:{{cure['i_id']}}</div>
+
+		<div>cure time:{{cure['time']}}</div>
+
+		<div>drugs:{{cure['drugs']}}</div>
+
+		<div>surgery:{{cure['surgery']}}</div>
+	  <br/>
+		{% endfor %}
+	{% else %}
+      <div> Sorry, there is no record of Doctor {{doctor_name}} <div>
+    {% endif %}
+
+<a href = '/'>return</a>
+
+<form method="POST" action="/search_cure">
+<p>
+  Name of the doctor: <input type="text" name="name">  
+  <input type="submit" value="Seach all cures of a doctor"></p>
+</form>
