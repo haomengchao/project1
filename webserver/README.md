@@ -1,18 +1,18 @@
-#W4111 project1: online medical app
+# W4111 project1: online medical app
 Team menbers： Mengchao Hao, Jiyuan Yang
 UNI: mh3884, jy2930
-##Setup:
-###Install libraries:
+## Setup:
+### Install libraries:
     pip install click, flask, sqlalchemy
-###Run it:
+### Run it:
     python server.py
-##Usage:
+## Usage:
 The server runs on http://0.0.0.0:8111/.
-###Sign up:
+### Sign up:
 Go to the register page. You can choose a user as doctor or patient.
-###Log in:
+### Log in:
 Use the account you signed up to log in.
-###Functions:
+### Functions:
 1. See your own homepage: click the link of your username. If you are a patient, then you can see all the posts you made and illnesses about you. If you are a doctor, then you can also see the posts and the cure information.
 2. See all the posts: Click "posts" to see all the posts, and click "make a post" to make a new post.
 3. Ratings: Click the link to see all the ratings of all doctors, you can also see the specific ratings of a certain doctor by using the search function at the bottom of rating page.
