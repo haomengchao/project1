@@ -54,11 +54,17 @@ def index():
 def nihaomeile():
  
   if session['identity'] == 'patient':
+    command_deleterating = text(''' DELETE FROM rate WHERE p_id = :u_id''')
+    g.conn.execute(command_deleterating,u_id = session['u_id'])
     command_delete1 = text(''' DELETE FROM patient WHERE u_id = :u_id''')
     g.conn.execute(command_delete1, u_id = session['u_id'])
     command_delete2 = text(''' DELETE FROM "User" WHERE u_id = :u_id''')
     g.conn.execute(command_delete2, u_id = session['u_id'])
   if session['identity'] == 'doctor':
+    command_deleterating = text(''' DELETE FROM rate WHERE d_id = :u_id''')
+    g.conn.execute(command_deleterating,u_id = session['u_id'])
+    command_deletecure = text(''' DELETE FROM cure WHERE d_id = :u_id''')
+    g.conn.execute(command_deletecure,u_id = session['u_id'])
     command_delete1 = text(''' DELETE FROM doctor_affiliate WHERE u_id = :u_id''')
     g.conn.execute(command_delete1, u_id = session['u_id'])
     command_delete2 = text(''' DELETE FROM "User" WHERE u_id = :u_id''')
