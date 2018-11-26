@@ -1,5 +1,6 @@
 # W4111 project1: online medical app
-Team menbers： Mengchao Hao, Jiyuan Yang
+Team members： Mengchao Hao, Jiyuan Yang
+<br>
 UNI: mh3884, jy2930
 ## Setup:
 ### Install libraries:
